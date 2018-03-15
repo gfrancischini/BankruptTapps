@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace BankruptTapps
 {
-    class Statistcs
+    class Statistics
     {
         public string WinnerName { get; set; }
         public int Rounds { get; set; }
 
-        public Statistcs(string winnerName, int rounds)
+        public Statistics(string winnerName, int rounds)
         {
             this.WinnerName = winnerName;
             this.Rounds = rounds;
@@ -24,10 +24,9 @@ namespace BankruptTapps
 
         static void Main(string[] args)
         {
-            
             logger.Info("Welcome to Bankrupt");
 
-            List<Statistcs> statistcs = new List<Statistcs>();
+            List<Statistics> statistics = new List<Statistics>();
 
             BoardLoader boardLoader = new BoardLoader();
             Board board = boardLoader.CreateBoard();
@@ -40,17 +39,21 @@ namespace BankruptTapps
                 CreateAndAddSpecificPlayers(game);
                 int rounds = game.RunGame();
 
-                statistcs.Add(new Statistcs(game.GetWinner().Name, rounds));
+                statistics.Add(new Statistics(game.GetWinner().Name, rounds));
 
                 logger.Info("Player {0} wins with {1}!!", game.GetWinner().Name, rounds);
             }
 
-            PrintStatistcs(statistcs);
+            PrintStatistcs(statistics);
 
             Console.ReadKey();
 
         }
 
+        /// <summary>
+        /// Create the 4 default players
+        /// </summary>
+        /// <param name="game"></param>
         static void CreateAndAddSpecificPlayers(GameManager game)
         {
             game.AddPlayers(new CautiousPlayer("Cauteloso"));
@@ -59,24 +62,28 @@ namespace BankruptTapps
             game.AddPlayers(new RandomPlayer("Aleatorio"));
         }
 
-        static void PrintStatistcs(List<Statistcs> statistcs)
+        /// <summary>
+        /// Print output statistics
+        /// </summary>
+        /// <param name="statistics"></param>
+        static void PrintStatistcs(List<Statistics> statistics)
         {
             logger.Info("----------------------------------------------------------------------------");
             logger.Info("-------------------------------------Stats----------------------------------");
 
             //Quantas partidas terminam por time out (1000 rodadas);
-            int timeoutCount = statistcs.Count(game => game.Rounds == GameManager.GAME_ROUND_DURATION);
+            int timeoutCount = statistics.Count(game => game.Rounds == GameManager.GAME_ROUND_DURATION);
             logger.Info("Timeout Rounds {0}", timeoutCount);
 
             //Quantos turnos em média demora uma partida;
-            double averageRounds = statistcs.Average(game => game.Rounds);
+            double averageRounds = statistics.Average(game => game.Rounds);
             logger.Info("Average Rounds {0}", averageRounds);
 
             //Qual a porcentagem de vitórias por comportamento dos jogadores;
-            var winners = statistcs.GroupBy(game => game.WinnerName).OrderBy(winner => winner.Key);
+            var winners = statistics.GroupBy(game => game.WinnerName).OrderBy(winner => winner.Key);
             foreach (var winner in winners)
             {
-                logger.Info("Player {0}: {1}%", winner.Key, ((double)winner.Count() / statistcs.Count())*100);
+                logger.Info("Player {0}: {1}%", winner.Key, ((double)winner.Count() / statistics.Count())*100);
             }
 
             //Qual o comportamento que mais vence.

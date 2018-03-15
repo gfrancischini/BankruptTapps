@@ -3,3 +3,14 @@
 1. Open the solution folder on the cmd
 2. dotnet restore
 3. dotnet run
+
+Optional
+
+Unit Test 
+1. Open the solution folder on the cmd
+2. dotnet restore
+3. dotnet run tests
+
+
+Log
+The log verbosity can be changed in nlog.config
