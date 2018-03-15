@@ -23,6 +23,9 @@ namespace BankruptTapps
             }
         }
 
+        /// <summary>
+        /// Clean the board
+        /// </summary>
         public void Clean()
         {
             foreach(Property property in properties)

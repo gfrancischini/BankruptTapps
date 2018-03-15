@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace BankruptTapps
@@ -13,9 +14,13 @@ namespace BankruptTapps
             return lines;
         }
 
+        /// <summary>
+        /// Create a new board based on the configuration file
+        /// </summary>
+        /// <returns></returns>
         public Board CreateBoard()
         {
-            string[] boardConfiguration = this.ParseConfiguration("C:\\Git\\BankruptTapps\\BankruptTapps\\gameConfig.txt");
+            string[] boardConfiguration = this.ParseConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "gameConfig.txt"));
             return new Board(boardConfiguration);
         }
     }

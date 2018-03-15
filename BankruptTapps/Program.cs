@@ -35,7 +35,7 @@ namespace BankruptTapps
             for (int i = 0; i < MAX_RUNS; i++)
             {
                 logger.Info("Running Game {0} of {1}", i, MAX_RUNS);
-                board.Clean();
+
                 GameManager game = new GameManager(board);
 
                 for (int player = 0; player < 4; player++)

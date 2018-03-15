@@ -7,14 +7,28 @@ namespace BankruptTapps
 {
     public class Player
     {
-        public String Name { get; set; }
-
-        public int Money { get; set; }
-
-        public int Position { get; set; }
-
         private Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// The current players name
+        /// </summary>
+        public String Name { get; set; }
+
+        /// <summary>
+        /// The amount of money that the player has
+        /// </summary>
+        public int Money { get; set; }
+
+        /// <summary>
+        /// The current player position
+        /// </summary>
+        public int Position { get; set; }
+
+        
+        /// <summary>
+        /// Build a new player
+        /// </summary>
+        /// <param name="name"></param>
         public Player(String name)
         {
             this.Name = name;
@@ -22,6 +36,9 @@ namespace BankruptTapps
             this.Position = 0;
         }
 
+        /// <summary>
+        /// Print message about player information
+        /// </summary>
         public void PrintPlayerInfo()
         {
             logger.Debug("--------------------------------------------------------------------");
@@ -29,16 +46,15 @@ namespace BankruptTapps
             logger.Debug("--------------------------------------------------------------------");
         }
       
+        /// <summary>
+        /// Check if the player should buy the property
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
         public Boolean ShouldBuyProperty(Property property)
         {
             return true;
         }
-
-        public void Move()
-        {
-
-        }
-
-       
+      
     }
 }
