@@ -16,18 +16,18 @@ namespace BankruptTapps
         /// <summary>
         /// The board tiles
         /// </summary>
-        public Tile[] Tile { get; set; }
+        public Tile[] Tiles { get; set; }
 
         public Board(string[] boardConfiguration)
         {
             this.Size = boardConfiguration.Length;
-            this.Tile = new Tile[this.Size];
+            this.Tiles = new Tile[this.Size];
             for (int i = 0; i < this.Size; i++)
             {
                 string[] piece = Regex.Replace(boardConfiguration[i].Trim(), @"\s+", " ").Split(' ');
                 int buyPrice = int.Parse(piece[0]);
                 int rentPrice = int.Parse(piece[1]);
-                this.Tile[i] = new Tile(buyPrice, rentPrice);
+                this.Tiles[i] = new Tile(buyPrice, rentPrice);
             }
         }
 
@@ -36,7 +36,7 @@ namespace BankruptTapps
         /// </summary>
         public void Clean()
         {
-            foreach(Tile property in Tile)
+            foreach(Tile property in Tiles)
             {
                 property.Clean();
             }
@@ -49,7 +49,7 @@ namespace BankruptTapps
         /// <param name="player"></param>
         public void RemovePlayer(Player player)
         {
-            this.Tile.Select(property => { property.Owner = null; return property; }).Where(property => property.Owner == player);
+            this.Tiles.Select(property => { property.Owner = null; return property; }).Where(property => property.Owner == player);
             /*foreach (Property property in this.Properties)
             {
                 if (property.Owner == player)
@@ -66,7 +66,7 @@ namespace BankruptTapps
         /// <returns></returns>
         public Tile GetTileAtPosition(int position)
         {
-            return this.Tile[position];
+            return this.Tiles[position];
         }
     }
 }

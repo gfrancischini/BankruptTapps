@@ -14,17 +14,17 @@ namespace BankruptTapps
         /// <summary>
         /// The board surface
         /// </summary>
-        protected Board Board {get; set;}
+        protected Board Board {get; private set; }
 
         /// <summary>
         /// The players that are still playing
         /// </summary>
-        protected List<Player> ActivePlayers { get; set; } = new List<Player>();
+        public List<Player> ActivePlayers { get; private set; } = new List<Player>();
 
         /// <summary>
         /// The current round that is being played
         /// </summary>
-        protected int CurrentRound { get; set; } = 0;
+        public int CurrentRound { get; private set; } = 0;
         
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace BankruptTapps
             int rentedPrice = property.RentPrice;
             if (renter.Money < 0)
             {
-                rentedPrice -= renter.Money;
+                rentedPrice += renter.Money;
             }
             property.Owner.Money += rentedPrice;
         }
