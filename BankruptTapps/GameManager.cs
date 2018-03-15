@@ -7,31 +7,37 @@ namespace BankruptTapps
 {
     public class GameManager
     {
+        public static int GAME_ROUND_DURATION = 1000;
+
         public Board Board {get; set;}
-        public Player[] players = new Player[4];
         private Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private List<Player> activePlayers = new List<Player>();
         private int currentRound = 0;
-        public GameManager()
-        {
-            this.Board = new Board();
+        Random random = new Random();
 
-            for(int i = 0; i < 4; i++)
-            {
-                this.players[i] = new Player(i.ToString());
-                this.activePlayers.Add(this.players[i]);
-            }
+
+        public GameManager(Board board)
+        {
+            this.Board = board;
         }
 
-       
-
-        public void RunGame()
+        public void AddPlayers(Player player)
         {
-            for (this.currentRound = 0; this.currentRound < 1000; this.currentRound++)
+            this.activePlayers.Add(player);
+        }
+
+      
+        public int RunGame()
+        {
+            for (this.currentRound = 0; this.currentRound < GAME_ROUND_DURATION; this.currentRound++)
             {
-                this.logger.Debug("Running Round {0} of 1000", currentRound);
-                RunRound();
+                this.logger.Debug("Running Round {0} of {1}", currentRound, GAME_ROUND_DURATION);
+                if(this.RunRound() == false)
+                {
+                    return currentRound;
+                }
             }
+            return currentRound;
         }
 
         public Player GetWinner()
@@ -45,18 +51,18 @@ namespace BankruptTapps
             return this.activePlayers.Count <= 1;
         }
 
-        public void RunRound()
+        public Boolean RunRound()
         {
-            this.activePlayers.ForEach((player) =>
-            {
+            foreach(Player player in this.activePlayers.ToArray()) { 
                 this.RunPlayerTurn(player);
 
                 if (this.IsGameCompleted())
                 {
                     this.logger.Debug("Game is completed");
-                    return;
+                    return false;
                 }
-            });
+            }
+            return true;
             
         }
 
@@ -86,14 +92,11 @@ namespace BankruptTapps
 
         public void AskPlayerToBuyProperty(Player player, Property property)
         {
-            if(player.ShouldBuyProperty(property))
+            if(player.Money > property.BuyPrice && player.ShouldBuyProperty(property))
             {
-                if(player.Money > property.BuyPrice)
-                {
                     this.logger.Debug("Player {0} is buying the property {1} for ${2}", player.Name, 1, property.BuyPrice);
                     player.Money -= property.BuyPrice;
                     property.Owner = player;
-                }
             }
         }
 
@@ -101,9 +104,7 @@ namespace BankruptTapps
         {
             this.logger.Debug("Player {0} is Bankrupt", player.Name);
             //every player property should be back to the board
-
             this.activePlayers.Remove(player);
-
         }
 
 
@@ -158,7 +159,7 @@ namespace BankruptTapps
         public int RollDice()
         {
             int diceSides = 6;
-            Random random = new Random();
+            
             return random.Next(1, diceSides + 1);
         }
     }

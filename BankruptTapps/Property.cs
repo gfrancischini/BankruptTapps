@@ -19,10 +19,15 @@ namespace BankruptTapps
         /// </summary>
         public Player Owner { get; set; }
 
-        public Property()
+        public Property(int buyPrice, int rentPrice)
         {
-            this.RentPrice = 10;
-            this.BuyPrice = 20;
+            this.BuyPrice = buyPrice;
+            this.RentPrice = rentPrice;
+            this.Owner = null;
+        }
+
+        public void Clean()
+        {
             this.Owner = null;
         }
     }
