@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace BankruptTapps
 {
@@ -74,7 +75,7 @@ namespace BankruptTapps
         public Player GetWinner()
         {
             //need to sort if there is more than one player
-            return this.ActivePlayers[0];
+            return this.ActivePlayers.OrderByDescending(player => player.Money).First();
         }
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace BankruptTapps
         {
             if (player.Money > property.BuyPrice && player.ShouldBuyProperty(property))
             {
-                this.logger.Debug("Player {0} is buying the property {1} for ${2}", player.Name, 1, property.BuyPrice);
+                this.logger.Debug("Player {0} is buying the property {1} for ${2}", player.Name, property.Name, property.BuyPrice);
                 player.Money -= property.BuyPrice;
                 property.Owner = player;
             }
@@ -211,7 +212,7 @@ namespace BankruptTapps
         /// <param name="renter"></param>
         protected void PayRent(Tile property, Player renter)
         {
-            this.logger.Debug("Player {0} is paying ${1} for Player {2} because of the rent price", renter.Name, property.RentPrice, 1);
+            this.logger.Debug("Player {0} is paying ${1} for Player {2} because of the rent price", renter.Name, property.RentPrice, property.Owner.Name);
             renter.Money -= property.RentPrice;
             int rentedPrice = property.RentPrice;
             if (renter.Money < 0)

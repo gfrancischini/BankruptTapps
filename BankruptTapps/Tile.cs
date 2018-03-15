@@ -7,6 +7,11 @@ namespace BankruptTapps
     public class Tile
     {
         /// <summary>
+        /// The tile name
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// The price required for renting the property. Integer because the values from the file are all integer
         /// This class can be overriden in the future and implement a custom rent price getter including hotels, houses.
         /// </summary>
@@ -22,8 +27,9 @@ namespace BankruptTapps
         /// </summary>
         public Player Owner { get; set; }
 
-        public Tile(int buyPrice, int rentPrice)
+        public Tile(string name, int buyPrice, int rentPrice)
         {
+            this.Name = name;
             this.BuyPrice = buyPrice;
             this.RentPrice = rentPrice;
             this.Owner = null;

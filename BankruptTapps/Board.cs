@@ -27,7 +27,7 @@ namespace BankruptTapps
                 string[] piece = Regex.Replace(boardConfiguration[i].Trim(), @"\s+", " ").Split(' ');
                 int buyPrice = int.Parse(piece[0]);
                 int rentPrice = int.Parse(piece[1]);
-                this.Tiles[i] = new Tile(buyPrice, rentPrice);
+                this.Tiles[i] = new Tile(i.ToString(), buyPrice, rentPrice);
             }
         }
 
@@ -49,7 +49,6 @@ namespace BankruptTapps
         /// <param name="player"></param>
         public void RemovePlayer(Player player)
         {
-            //this.Tiles.Select(property => { property.Owner = null; return property; }).Where(property => property.Owner == player);
             foreach (Tile property in this.Tiles)
             {
                 if (property.Owner == player)
