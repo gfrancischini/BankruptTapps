@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankruptTapps", "BankruptTapps\BankruptTapps.csproj", "{9AB21BE3-D6CF-481F-90A2-901189EC9982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestBankruptTapps", "UnitTestBankruptTapps\UnitTestBankruptTapps.csproj", "{E5F699B6-9C1D-488C-85BA-5EC67676DB75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestBankruptTapps", "UnitTestBankruptTapps\UnitTestBankruptTapps.csproj", "{E5F699B6-9C1D-488C-85BA-5EC67676DB75}"
 EndProject
 Global
 	GlobalSection(Performance) = preSolution
@@ -30,5 +30,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1EC86F6-48EF-4DDE-84FE-4AC7BC859EF3}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

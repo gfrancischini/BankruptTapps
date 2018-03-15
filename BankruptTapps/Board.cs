@@ -49,14 +49,14 @@ namespace BankruptTapps
         /// <param name="player"></param>
         public void RemovePlayer(Player player)
         {
-            this.Tiles.Select(property => { property.Owner = null; return property; }).Where(property => property.Owner == player);
-            /*foreach (Property property in this.Properties)
+            //this.Tiles.Select(property => { property.Owner = null; return property; }).Where(property => property.Owner == player);
+            foreach (Tile property in this.Tiles)
             {
                 if (property.Owner == player)
                 {
                     property.Owner = null;
                 }
-            }*/
+            }
         }
 
         /// <summary>
