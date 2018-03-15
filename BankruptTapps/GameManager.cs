@@ -9,11 +9,23 @@ namespace BankruptTapps
     {
         public static int GAME_ROUND_DURATION = 1000;
         private Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        private Board Board {get; set;}
-        private List<Player> activePlayers = new List<Player>();
-        private int currentRound = 0;
         private Random random = new Random();
+
+        /// <summary>
+        /// The board surface
+        /// </summary>
+        protected Board Board {get; set;}
+
+        /// <summary>
+        /// The players that are still playing
+        /// </summary>
+        protected List<Player> ActivePlayers { get; set; } = new List<Player>();
+
+        /// <summary>
+        /// The current round that is being played
+        /// </summary>
+        protected int CurrentRound { get; set; } = 0;
+        
 
         /// <summary>
         /// Instantiate a new game manager
@@ -34,7 +46,7 @@ namespace BankruptTapps
         /// <param name="player"></param>
         public void AddPlayers(Player player)
         {
-            this.activePlayers.Add(player);
+            this.ActivePlayers.Add(player);
         }
 
         /// <summary>
@@ -43,15 +55,15 @@ namespace BankruptTapps
         /// <returns></returns>
         public int RunGame()
         {
-            for (this.currentRound = 0; this.currentRound < GAME_ROUND_DURATION; this.currentRound++)
+            for (this.CurrentRound = 0; this.CurrentRound < GAME_ROUND_DURATION; this.CurrentRound++)
             {
-                this.logger.Debug("Running Round {0} of {1}", currentRound, GAME_ROUND_DURATION);
+                this.logger.Debug("Running Round {0} of {1}", CurrentRound, GAME_ROUND_DURATION);
                 if(this.RunRound() == false)
                 {
-                    return currentRound;
+                    return this.CurrentRound;
                 }
             }
-            return currentRound;
+            return this.CurrentRound;
         }
 
         /// <summary>
@@ -61,25 +73,25 @@ namespace BankruptTapps
         public Player GetWinner()
         {
             //need to sort if there is more than one player
-            return this.activePlayers[0];
+            return this.ActivePlayers[0];
         }
 
         /// <summary>
         /// Check if the game is completed
         /// </summary>
         /// <returns></returns>
-        private Boolean IsGameCompleted()
+        protected Boolean IsGameCompleted()
         {
-            return this.activePlayers.Count <= 1;
+            return this.ActivePlayers.Count <= 1;
         }
 
         /// <summary>
         /// Run a round
         /// </summary>
         /// <returns></returns>
-        private Boolean RunRound()
+        protected Boolean RunRound()
         {
-            foreach(Player player in this.activePlayers.ToArray()) { 
+            foreach(Player player in this.ActivePlayers.ToArray()) { 
                 this.RunPlayerTurn(player);
 
                 if (this.IsGameCompleted())
@@ -96,10 +108,10 @@ namespace BankruptTapps
         /// Run a player turn
         /// </summary>
         /// <param name="player"></param>
-        private void RunPlayerTurn(Player player)
+        protected void RunPlayerTurn(Player player)
         {
             //move the player to the correct place
-            Property property = this.MovePlayer(player);
+            Tile property = this.MovePlayer(player);
 
             //verify if player should pay the rent
             if (this.ShouldPayRent(property, player))
@@ -126,7 +138,7 @@ namespace BankruptTapps
         /// </summary>
         /// <param name="player"></param>
         /// <param name="property"></param>
-        private void AskPlayerToBuyProperty(Player player, Property property)
+        protected void AskPlayerToBuyProperty(Player player, Tile property)
         {
             if(player.Money > property.BuyPrice && player.ShouldBuyProperty(property))
             {
@@ -140,11 +152,13 @@ namespace BankruptTapps
         /// Declare player bankrupt (out of money)
         /// </summary>
         /// <param name="player"></param>
-        private void DeclarePlayerBankrupt(Player player)
+        protected void DeclarePlayerBankrupt(Player player)
         {
             this.logger.Debug("Player {0} is Bankrupt", player.Name);
             //every player property should be back to the board
-            this.activePlayers.Remove(player);
+            this.ActivePlayers.Remove(player);
+
+            this.Board.RemovePlayer(player);
         }
 
         /// <summary>
@@ -152,7 +166,7 @@ namespace BankruptTapps
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        private Property MovePlayer(Player player)
+        protected Tile MovePlayer(Player player)
         {
             int dice = this.RollDice();
             int position = player.Position + dice;
@@ -165,14 +179,14 @@ namespace BankruptTapps
 
             this.logger.Debug("Player {0} rolled the dice {1} and moved to position {2}", player.Name, dice, position);
 
-            return this.Board.properties[position];
+            return this.Board.GetTileAtPosition(position);
         }
 
         /// <summary>
         /// Pay the player for running the entire board
         /// </summary>
         /// <param name="player"></param>
-        private void PayPlayerForCompletingTheBoard(Player player)
+        protected void PayPlayerForCompletingTheBoard(Player player)
         {
             this.logger.Debug("Player {0} was payed for completing the board", player.Name);
             player.Money += 100;
@@ -183,7 +197,7 @@ namespace BankruptTapps
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        private Boolean IsPlayerBankrupt(Player player)
+        protected Boolean IsPlayerBankrupt(Player player)
         {
             return player.Money < 0;
         }
@@ -193,7 +207,7 @@ namespace BankruptTapps
         /// </summary>
         /// <param name="property"></param>
         /// <param name="renter"></param>
-        private void PayRent(Property property, Player renter)
+        protected void PayRent(Tile property, Player renter)
         {
             this.logger.Debug("Player {0} is paying ${1} for Player {2} because of the rent price", renter.Name, property.RentPrice, 1);
             renter.Money -= property.RentPrice;
@@ -211,7 +225,7 @@ namespace BankruptTapps
         /// <param name="property"></param>
         /// <param name="player"></param>
         /// <returns></returns>
-        private Boolean ShouldPayRent(Property property, Player player)
+        protected Boolean ShouldPayRent(Tile property, Player player)
         {
             return property.Owner != null && property.Owner != player;
         }
@@ -220,7 +234,7 @@ namespace BankruptTapps
         /// Roll the dice
         /// </summary>
         /// <returns></returns>
-        private int RollDice()
+        protected int RollDice()
         {
             int diceSides = 6;
             return random.Next(1, diceSides + 1);

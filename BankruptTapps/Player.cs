@@ -51,7 +51,7 @@ namespace BankruptTapps
         /// </summary>
         /// <param name="property"></param>
         /// <returns></returns>
-        public Boolean ShouldBuyProperty(Property property)
+        public Boolean ShouldBuyProperty(Tile property)
         {
             return true;
         }

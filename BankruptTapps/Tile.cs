@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BankruptTapps
 {
-    public class Property
+    public class Tile
     {
         /// <summary>
         /// The price required for renting the property. Integer because the values from the file are all integer
@@ -21,7 +21,7 @@ namespace BankruptTapps
         /// </summary>
         public Player Owner { get; set; }
 
-        public Property(int buyPrice, int rentPrice)
+        public Tile(int buyPrice, int rentPrice)
         {
             this.BuyPrice = buyPrice;
             this.RentPrice = rentPrice;
