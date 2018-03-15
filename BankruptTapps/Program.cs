@@ -37,13 +37,9 @@ namespace BankruptTapps
                 logger.Info("Running Game {0} of {1}", i, MAX_RUNS);
 
                 GameManager game = new GameManager(board);
-
-                for (int player = 0; player < 4; player++)
-                {
-                    game.AddPlayers(new Player(player.ToString()));
-                }
-
+                CreateAndAddSpecificPlayers(game);
                 int rounds = game.RunGame();
+
                 statistcs.Add(new Statistcs(game.GetWinner().Name, rounds));
 
                 logger.Info("Player {0} wins with {1}!!", game.GetWinner().Name, rounds);
@@ -53,6 +49,14 @@ namespace BankruptTapps
 
             Console.ReadKey();
 
+        }
+
+        static void CreateAndAddSpecificPlayers(GameManager game)
+        {
+            game.AddPlayers(new CautiousPlayer("Cauteloso"));
+            game.AddPlayers(new ImpulsivePlayer("Impulsivo"));
+            game.AddPlayers(new PickyPlayer("Exigente"));
+            game.AddPlayers(new RandomPlayer("Aleatorio"));
         }
 
         static void PrintStatistcs(List<Statistcs> statistcs)

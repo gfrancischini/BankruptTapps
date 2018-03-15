@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BankruptTapps
 {
-    public class Player
+    public abstract class Player
     {
         private Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -45,16 +45,13 @@ namespace BankruptTapps
             logger.Debug("Player {0}\nMoney: ${1}\nPosition: {2}", this.Name, this.Money, this.Position);
             logger.Debug("--------------------------------------------------------------------");
         }
-      
+
         /// <summary>
         /// Check if the player should buy the property
         /// </summary>
         /// <param name="property"></param>
         /// <returns></returns>
-        public Boolean ShouldBuyProperty(Tile property)
-        {
-            return true;
-        }
+        public abstract Boolean ShouldBuyProperty(Tile property);
       
     }
 }
