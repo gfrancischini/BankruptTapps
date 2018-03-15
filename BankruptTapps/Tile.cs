@@ -8,6 +8,7 @@ namespace BankruptTapps
     {
         /// <summary>
         /// The price required for renting the property. Integer because the values from the file are all integer
+        /// This class can be overriden in the future and implement a custom rent price getter including hotels, houses.
         /// </summary>
         public int RentPrice { get; set; }
 

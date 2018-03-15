@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BankruptTapps
 {
-    class CautiousPlayer : Player
+    public class CautiousPlayer : Player
     {
         /// <summary>
         /// Create a new cautious player instance

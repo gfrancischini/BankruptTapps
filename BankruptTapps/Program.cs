@@ -19,15 +19,20 @@ namespace BankruptTapps
 
     class Program
     {
-        static int MAX_RUNS = 300;
         static Logger logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
 
+        /// <summary>
+        /// Number of game runs
+        /// </summary>
+        static int MAX_RUNS = 300;
+        
         static void Main(string[] args)
         {
             logger.Info("Welcome to Bankrupt");
 
             List<Statistics> statistics = new List<Statistics>();
 
+            //create the board only one time to avoid reading the configuration file multiple times
             BoardLoader boardLoader = new BoardLoader();
             Board board = boardLoader.CreateBoard();
 
@@ -47,7 +52,6 @@ namespace BankruptTapps
             PrintStatistcs(statistics);
 
             Console.ReadKey();
-
         }
 
         /// <summary>

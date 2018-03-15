@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BankruptTapps
 {
-    class PickyPlayer : Player
+    public class PickyPlayer : Player
     {
         /// <summary>
         /// Create a new picky player instance
@@ -23,7 +23,9 @@ namespace BankruptTapps
         public override bool ShouldBuyProperty(Tile property)
         {
             //O jogador exigente compra qualquer propriedade, desde que o aluguel dela seja maior do
-            //que 50 coins.            if(property.RentPrice >= 50)
+            //que 50 coins.
+
+            if(property.RentPrice >= 50)
             {
                 return true;
             }
