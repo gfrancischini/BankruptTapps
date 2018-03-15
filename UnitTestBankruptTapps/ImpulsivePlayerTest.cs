@@ -11,7 +11,7 @@ namespace UnitTestBankruptTapps
         public void ShouldBuyPropertyReturnTrueAlways()
         {
             ImpulsivePlayer player = new ImpulsivePlayer("player");
-            Tile property = new Tile(100, 50);
+            Tile property = new Tile("tile", 100, 50);
             property.BuyPrice = 100;
             player.Money = 180;
             Assert.IsTrue(player.ShouldBuyProperty(property));

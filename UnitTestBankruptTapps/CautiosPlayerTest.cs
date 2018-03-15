@@ -11,7 +11,7 @@ namespace UnitTestBankruptTapps
         public void ShouldBuyPropertyReturnTrueIfMoneyLeftGreaterThan80()
         {
             CautiousPlayer player = new CautiousPlayer("player");
-            Tile property = new Tile(100, 50);
+            Tile property = new Tile("tile", 100, 50);
             property.BuyPrice = 100;
             player.Money = 180;
             Assert.IsTrue(player.ShouldBuyProperty(property));
@@ -21,7 +21,7 @@ namespace UnitTestBankruptTapps
         public void ShouldBuyPropertyReturnFalseIfMoneyLeftLessThan80()
         {
             CautiousPlayer player = new CautiousPlayer("player");
-            Tile property = new Tile(100, 50);
+            Tile property = new Tile("tile", 100, 50);
             property.BuyPrice = 100;
             player.Money = 179;
             Assert.IsFalse(player.ShouldBuyProperty(property));

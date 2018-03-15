@@ -11,7 +11,7 @@ namespace UnitTestBankruptTapps
         public void ShouldBuyPropertyReturnTrueIfRentGreaterThan50()
         {
             PickyPlayer player = new PickyPlayer("player");
-            Tile property = new Tile(100, 50);
+            Tile property = new Tile("tile", 100, 50);
             property.RentPrice = 50;
             player.Money = 180;
             Assert.IsTrue(player.ShouldBuyProperty(property));
@@ -21,7 +21,7 @@ namespace UnitTestBankruptTapps
         public void ShouldBuyPropertyReturnFalseIfRentLeftLessThan50()
         {
             PickyPlayer player = new PickyPlayer("player");
-            Tile property = new Tile(100, 50);
+            Tile property = new Tile("tile", 100, 50);
             property.RentPrice = 49;
             player.Money = 180;
             Assert.IsFalse(player.ShouldBuyProperty(property));
