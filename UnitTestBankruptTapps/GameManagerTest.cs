@@ -7,7 +7,8 @@ namespace UnitTestBankruptTapps
     [TestClass]
     public class GameManagerTest
     {
-        public class ExposedGameManager : GameManager {
+        public class ExposedGameManager : GameManager
+        {
             public ExposedGameManager(Board board) : base(board)
             {
 
@@ -75,7 +76,7 @@ namespace UnitTestBankruptTapps
             ExposedGameManager game = new ExposedGameManager(board);
 
             Player playerPropertyOwner = new RandomPlayer("playerPropertyOwner");
-            
+
             Tile property = board.Tiles[0];
             property.Owner = playerPropertyOwner;
 
@@ -83,12 +84,12 @@ namespace UnitTestBankruptTapps
             game.AddPlayers(player);
 
             property.RentPrice = 50;
-           
+
             player.Money = 90;
             playerPropertyOwner.Money = 0;
             game.PayRent(property, player);
             Assert.AreEqual(50, playerPropertyOwner.Money);
-            
+
             player.Money = 20;
             playerPropertyOwner.Money = 0;
             game.PayRent(property, player);
@@ -103,7 +104,7 @@ namespace UnitTestBankruptTapps
             ExposedGameManager game = new ExposedGameManager(board);
 
             Tile property = board.Tiles[0];
-            
+
             Player player = new RandomPlayer("Random");
             game.AddPlayers(player);
 

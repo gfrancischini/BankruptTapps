@@ -23,7 +23,8 @@ namespace BankruptTapps
         public override bool ShouldBuyProperty(Tile property)
         {
             //O jogador cauteloso compra qualquer propriedade desde que ele tenha uma reserva de
-            //80 coins sobrando depois de realizada a compra.
+            //80 coins sobrando depois de realizada a compra.
+
             if (this.Money - property.BuyPrice >= 80)
             {
                 return true;

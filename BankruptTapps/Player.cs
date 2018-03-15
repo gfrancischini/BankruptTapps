@@ -24,7 +24,7 @@ namespace BankruptTapps
         /// </summary>
         public int Position { get; set; }
 
-        
+
         /// <summary>
         /// Build a new player
         /// </summary>
@@ -52,6 +52,6 @@ namespace BankruptTapps
         /// <param name="property"></param>
         /// <returns></returns>
         public abstract Boolean ShouldBuyProperty(Tile property);
-      
+
     }
 }

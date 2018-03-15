@@ -11,7 +11,7 @@ namespace BankruptTapps
         /// Create a new random player instance
         /// </summary>
         /// <param name="name"></param>
-        public RandomPlayer(String name):base(name)
+        public RandomPlayer(String name) : base(name)
         {
 
         }

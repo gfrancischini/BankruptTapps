@@ -7,6 +7,11 @@ namespace BankruptTapps
 {
     public class BoardLoader
     {
+        /// <summary>
+        /// Parse board configuration file
+        /// </summary>
+        /// <param name="boardConfigurationPath"></param>
+        /// <returns></returns>
         public string[] ParseConfiguration(string boardConfigurationPath)
         {
             string configuration = Utils.ReadFile(boardConfigurationPath);

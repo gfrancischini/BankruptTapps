@@ -11,7 +11,7 @@ namespace BankruptTapps
         /// <summary>
         /// The board size
         /// </summary>
-        public int Size {get; set;}
+        public int Size { get; set; }
 
         /// <summary>
         /// The board tiles
@@ -36,7 +36,7 @@ namespace BankruptTapps
         /// </summary>
         public void Clean()
         {
-            foreach(Tile property in Tiles)
+            foreach (Tile property in Tiles)
             {
                 property.Clean();
             }

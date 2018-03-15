@@ -25,7 +25,7 @@ namespace BankruptTapps
             //O jogador exigente compra qualquer propriedade, desde que o aluguel dela seja maior do
             //que 50 coins.
 
-            if(property.RentPrice >= 50)
+            if (property.RentPrice >= 50)
             {
                 return true;
             }

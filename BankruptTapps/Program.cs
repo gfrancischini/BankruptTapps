@@ -25,7 +25,7 @@ namespace BankruptTapps
         /// Number of game runs
         /// </summary>
         static int MAX_RUNS = 300;
-        
+
         static void Main(string[] args)
         {
             logger.Info("Welcome to Bankrupt");
@@ -87,7 +87,7 @@ namespace BankruptTapps
             var winners = statistics.GroupBy(game => game.WinnerName).OrderBy(winner => winner.Key);
             foreach (var winner in winners)
             {
-                logger.Info("Player {0}: {1}%", winner.Key, ((double)winner.Count() / statistics.Count())*100);
+                logger.Info("Player {0}: {1}%", winner.Key, ((double)winner.Count() / statistics.Count()) * 100);
             }
 
             //Qual o comportamento que mais vence.
